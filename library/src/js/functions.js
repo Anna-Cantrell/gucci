@@ -12,7 +12,8 @@
 // jQuery
 (function($) {
 
-	$(document).ready(function() {
+	$(document).ready(function() { 
+    console.log('connected!');
 		// Menu toggle
 		$('.menu-main-menu-container').prepend('<a href="#" class="main-menu-toggle">Menu</a>');
 		$('#menu-main-menu').hide();

@@ -21,26 +21,25 @@
 
 function gucci_styles() {
 	// Load main stylesheet
-	wp_enqueue_style('gucci-style', get_template_directory_uri() . '/style.min.css');
-
+	wp_enqueue_style('gucci-style', get_template_directory_uri() . '/style.css');
 	// Load main javascript
-	wp_enqueue_script('gucci-script', get_template_directory_uri() . '/functions.min.js', array('jquery'), '1.0', true);
+	wp_enqueue_script('gucci-script', get_template_directory_uri() . '/library/js/functions.min.js', array('jquery'), '1.0', true);
 }
-
 add_action('wp_enqueue_scripts', 'gucci_styles');
 
+
 // Move jQuery to footer
-function gucci_jquery_footer() {
-	// unregister jquery
-	wp_deregister_script('jquery');
-
-	// register to footer
-	wp_register_script('jquery', includes_url('/js/jquery/jquery.js'), false, null, true);
-
-	wp_enqueue_script('jquery');
-}
-
-add_action('wp_enqueue_scripts', 'gucci_jquery_footer');
+// function gucci_jquery_footer() {
+// 	// unregister jquery
+// 	wp_deregister_script('jquery');
+//
+// 	// register to footer
+// 	wp_register_script('jquery', includes_url('/js/jquery/jquery.js'), false, null, true);
+//
+// 	wp_enqueue_script('jquery');
+// }
+//
+// add_action('wp_enqueue_scripts', 'gucci_jquery_footer');
 
 /**
  * Register Features
@@ -54,11 +53,9 @@ add_action('wp_enqueue_scripts', 'gucci_jquery_footer');
 function gucci_features() {
 	// Support title tag
 	add_theme_support('title-tag');
-
 	// Support featured images
 	add_theme_support('post-thumbnails');
 }
-
 add_action('after_setup_theme', 'gucci_features');
 
 /**
@@ -69,7 +66,6 @@ add_action('after_setup_theme', 'gucci_features');
  *
  * @since Gucci 1.0
  */
-
 function gucci_register_menus() {
 	register_nav_menus(
 		array(
@@ -77,17 +73,16 @@ function gucci_register_menus() {
 		)
 	);
 }
-
 add_action('init', 'gucci_register_menus');
 
-// Remove editor (using flexible content instead)
-
-function remove_editor() {
-	remove_post_type_support('page', 'editor');
-	remove_post_type_support('post', 'editor');
+/**
+ * Register support for Gutenberg wide alignment
+ */
+function gucci_setup() {
+  add_theme_support( 'align-wide' );
 }
+add_action( 'after_setup_theme', 'gucci_setup' );
 
-add_action('init', 'remove_editor');
 
 /**
  * Advanced Custom Fields Settings
@@ -99,7 +94,6 @@ add_action('init', 'remove_editor');
  */
 
 if( function_exists('acf_add_options_page') ) {
-
 	// Theme settings
 	acf_add_options_page( array(
 		'page_title' => 'Theme Settings',
@@ -109,6 +103,5 @@ if( function_exists('acf_add_options_page') ) {
 
 }
 
-// Include fields
-require_once('vendor/autoload.php');
-require_once('fields.php');
+// Include blocks
+require_once('library/theme-functions/acf-blocks.php');

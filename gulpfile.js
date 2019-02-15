@@ -12,14 +12,14 @@ var gulp = require('gulp');
 var paths = {
     templates: './*.php',
     css: '*.css',
-    js: './functions.js',
-    scss: 'src/scss/**/*.scss'
+    js: './library/src/js/functions.js',
+    scss: './library/src/scss/**/*.scss'
 };
 
 // Start browserSync server stuffs
 gulp.task('browserSync', function() {
     browserSync.init({
-       proxy: 'http://localhost:8888/'
+       proxy: 'http://local.eps:8888/'
     })
 });
 
@@ -46,10 +46,10 @@ gulp.task('styles', function(){
 
 // Do JS things
 gulp.task('js', function() {
-	return gulp.src('./functions.js')
+	return gulp.src(paths.js)
 		.pipe(babelMinify())
 		.pipe(rename({ suffix: '.min' }))
-		.pipe(gulp.dest('./'))
+		.pipe(gulp.dest('./library/js'))
 		.pipe(browserSync.reload({
         stream:true
     }));
