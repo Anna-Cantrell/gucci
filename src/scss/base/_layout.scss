@@ -1,0 +1,19 @@
+.layout {
+	margin: 0 auto;
+}
+
+.layout--normal {
+	max-width: 1024px;
+}
+
+.layout--wide {
+	max-width: 1600px;
+}
+
+.layout--full {
+	max-width: 100%;
+}
+
+.layout--narrow {
+	max-width: 768px;
+}

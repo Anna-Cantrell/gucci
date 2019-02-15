@@ -1,0 +1,10 @@
+@media (min-width: 768px) {
+	.menu-main-menu-container {
+		& .main-menu-toggle {
+			display: none;
+		}
+		& .menu {
+			display: block !important; /* override menu toggle */
+		}
+	}
+}
