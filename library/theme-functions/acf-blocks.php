@@ -50,4 +50,55 @@ function gucci_block_categories( $categories, $post ) {
     );
 }
 add_filter( 'block_categories', 'gucci_block_categories', 10, 2 );
+
+// Disallow most default blocks
+add_filter( 'allowed_block_types', 'gucci_allowed_block_types' );
+function gucci_allowed_block_types( $allowed_blocks ) {
+	return array(
+		'core/image',
+		'core/paragraph',
+		'core/heading',
+		'acf/hero',
+    'acf/button',
+		'acf/featuredproducts'
+	);
+}
+
+/*
+Full list of default core blocks (preface with core/): 
+
+archives
+audio
+button
+categories
+code
+column
+columns
+coverImage
+embed
+file
+freeform
+gallery
+heading
+html
+image
+latestComments
+latestPosts
+list
+more
+nextpage
+paragraph
+preformatted
+pullquote
+quote
+reusableBlock
+separator
+shortcode
+spacer
+subhead
+table
+textColumns
+verse
+video
+*/
 ?>
