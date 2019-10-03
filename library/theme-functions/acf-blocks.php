@@ -27,10 +27,7 @@ function my_acf_init() {
 }
 
 function gucci_acf_block_render_callback( $block ) {
-
-	// convert name ("acf/testimonial") into path friendly slug ("testimonial")
 	$slug = str_replace('acf/', '', $block['name']);
-
 	// include a template part from within the "template-parts/block" folder
 	if( file_exists( get_theme_file_path("/library/template-parts/blocks/section-{$slug}.php") ) ) {
 		include( get_theme_file_path("/library/template-parts/blocks/section-{$slug}.php") );
@@ -65,7 +62,7 @@ function gucci_allowed_block_types( $allowed_blocks ) {
 }
 
 /*
-Full list of default core blocks (preface with core/): 
+Full list of default core blocks (preface with core/):
 
 archives
 audio

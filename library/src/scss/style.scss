@@ -7,5 +7,8 @@ Version: 1.0.0
 GitHub Theme URI: Anna-Cantrell/gucci
 */
 
-@import './base/_layout.scss';
-@import './components/_main-menu.scss';
+@import './base/variables';
+@import './base/layout';
+@import './base/global';
+
+@import './components/main-menu';

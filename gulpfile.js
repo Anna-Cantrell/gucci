@@ -6,7 +6,9 @@ var gulp = require('gulp');
     browserSync = require('browser-sync'),
     runSequence = require('run-sequence'),
     pump = require('pump'),
-    rename = require('gulp-rename');
+    rename = require('gulp-rename'),
+    include = require('gulp-include'),
+    notify = require('gulp-notify');
 
 
 var paths = {
@@ -19,13 +21,13 @@ var paths = {
 // Start browserSync server stuffs
 gulp.task('browserSync', function() {
     browserSync.init({
-       proxy: 'http://local.eps:8888/'
+       proxy: 'http://local.concepteight:8888/'
     })
 });
 
 // Do Template things
 gulp.task('templates', function() {
-    return gulp.src(paths.templates)
+  return gulp.src(paths.templates)
     .pipe(browserSync.reload({
         stream:true
     }));
@@ -34,10 +36,13 @@ gulp.task('templates', function() {
 
 // Do SCSS things
 gulp.task('styles', function(){
-    return gulp.src(paths.scss)
-    .pipe(sass())
+  return gulp.src(paths.scss)
+    .pipe(sass().on('error', sass.logError))
+    .pipe(sass().on('error', notify.onError({
+			title: 'Sass Compilation Error',
+			message: '<%= error.message %>'
+		})))
     .pipe(minifyCSS())
-		// .pipe(rename({ suffix: '.min' }))
     .pipe(gulp.dest('./'))
     .pipe(browserSync.reload({
         stream:true
@@ -47,6 +52,7 @@ gulp.task('styles', function(){
 // Do JS things
 gulp.task('js', function() {
 	return gulp.src(paths.js)
+    .pipe(include()).on('error', console.log)
 		.pipe(babelMinify())
 		.pipe(rename({ suffix: '.min' }))
 		.pipe(gulp.dest('./library/js'))
@@ -57,12 +63,12 @@ gulp.task('js', function() {
 
 //Watch things
 gulp.task('watch', ['browserSync'], function() {
-    gulp.watch(paths.templates, ['templates']);
-    gulp.watch(paths.scss, ['styles']);
-    gulp.watch(paths.js, ['js']);
+  gulp.watch(paths.templates, ['templates']);
+  gulp.watch(paths.scss, ['styles']);
+  gulp.watch(paths.js, ['js']);
 });
 
 // Starts gulp
 gulp.task('default', function (callback) {
-    runSequence(['styles', 'templates', 'js', 'browserSync', 'watch'], callback);
+  runSequence(['styles', 'templates', 'js', 'browserSync', 'watch'], callback);
 });

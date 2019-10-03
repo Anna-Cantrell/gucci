@@ -28,19 +28,6 @@ function gucci_styles() {
 add_action('wp_enqueue_scripts', 'gucci_styles');
 
 
-// Move jQuery to footer
-// function gucci_jquery_footer() {
-// 	// unregister jquery
-// 	wp_deregister_script('jquery');
-//
-// 	// register to footer
-// 	wp_register_script('jquery', includes_url('/js/jquery/jquery.js'), false, null, true);
-//
-// 	wp_enqueue_script('jquery');
-// }
-//
-// add_action('wp_enqueue_scripts', 'gucci_jquery_footer');
-
 /**
  * Register Features
  *
@@ -68,9 +55,7 @@ add_action('after_setup_theme', 'gucci_features');
  */
 function gucci_register_menus() {
 	register_nav_menus(
-		array(
-			'main-menu' => __('Main Menu')
-		)
+		array( 'main-menu' => __('Main Menu') )
 	);
 }
 add_action('init', 'gucci_register_menus');
