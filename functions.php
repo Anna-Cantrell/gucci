@@ -10,6 +10,9 @@
  * @since Gucci 1.0
  */
 
+ /* Remove user's ability to edit theme */
+define( 'DISALLOW_FILE_EDIT', true );
+
 /**
  * Register Styles & Scripts
  *
