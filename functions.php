@@ -10,7 +10,7 @@
  * @since Gucci 1.0
  */
 
- /* Remove user's ability to edit theme */
+ /* Remove user's access to theme editor */
 define( 'DISALLOW_FILE_EDIT', true );
 
 /**
