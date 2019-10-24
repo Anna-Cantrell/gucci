@@ -11,17 +11,19 @@
 
 // jQuery
 (function($) {
+	$(document).ready(function() {
 
-	$(document).ready(function() { 
     console.log('connected!');
-		// Menu toggle
-		$('.menu-main-menu-container').prepend('<a href="#" class="main-menu-toggle">Menu</a>');
-		$('#menu-main-menu').hide();
-		$('.main-menu-toggle').click(function(e) {
-			e.preventDefault();
-			$(this).toggleClass('expanded');
-			$('#menu-main-menu').slideToggle().toggleClass('expanded');
-		});
-	});
 
+    // smooth scroll
+  	var $root = $('html, body');
+  	$('a[href^="#"]').on('click', function () {
+  		$root.animate({
+  			scrollTop: $( $.attr(this, 'href') ).offset().top - 60
+  		}, 500);
+
+  		return false;
+  	});
+
+	});
 })(jQuery);

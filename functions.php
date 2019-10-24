@@ -88,7 +88,22 @@ if( function_exists('acf_add_options_page') ) {
 		'menu_title' => 'Theme Settings',
 		'parent_slug' => 'themes.php'
 	));
+}
 
+
+/**
+	 * Returns the SVG code of the SVG asset represented by the given key.
+	 *
+	 * @param string $key - A key that represents a specific SVG file/asset
+	 * @return string - The code of the SVG file/asset
+	 */
+function get_svg($key) {
+	$content = 'none';
+	$file = get_stylesheet_directory().'/library/assets/svg/'.$key.'.svg';
+	if(file_exists($file)) {
+		$content = file_get_contents($file);
+	}
+	return $content;
 }
 
 // Include blocks
