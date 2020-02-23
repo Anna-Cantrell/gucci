@@ -6,45 +6,48 @@ function my_acf_init() {
 
 		// register blocks
 		acf_register_block(array(
-			'name'				=> 'testimonial',
-			'title'				=> __('Testimonial'),
-			'description'		=> __('A custom testimonial block.'),
-			'render_callback'	=> 'gucci_acf_block_render_callback',
-			'category'			=> 'formatting',
-			'icon'				=> 'admin-comments',
-			'keywords'			=> array( 'testimonial', 'quote' ),
-		));
-    acf_register_block(array(
 			'name'				=> 'hero',
 			'title'				=> __('Hero'),
-			'description'		=> __('Homepage Hero'),
-			'render_callback'	=> 'gucci_acf_block_render_callback',
+			'description'		=> __('Hero Section'),
+			'render_template'   => 'library/template-parts/blocks/block-hero.php',
 			'category'			=> 'homepage',
 			'icon'				=> 'admin-comments',
 			'keywords'			=> array( 'homepage', 'hero' ),
 		));
+		acf_register_block(array(
+			'name'				=> 'testimonial',
+			'title'				=> __('Testimonial'),
+			'description'		=> __('A custom testimonial block.'),
+			'render_template'   => 'library/template-parts/blocks/block-testimonial.php',
+			'category'			=> 'formatting',
+			'icon'				=> 'admin-comments',
+			'keywords'			=> array( 'testimonial', 'quote' ),
+		));
+		acf_register_block(array(
+			'name'				=> 'button',
+			'title'				=> __('Button'),
+			'description'		=> __('A big CTA button'),
+			'render_template'   => 'library/template-parts/blocks/block-button.php',
+			'category'			=> 'formatting',
+			'icon'				=> 'editor-removeformatting',
+			'keywords'			=> array( 'testimonial', 'quote' ),
+		));
 	}
 }
-
-function gucci_acf_block_render_callback( $block ) {
-	$slug = str_replace('acf/', '', $block['name']);
-	// include a template part from within the "template-parts/block" folder
-	if( file_exists( get_theme_file_path("/library/template-parts/blocks/section-{$slug}.php") ) ) {
-		include( get_theme_file_path("/library/template-parts/blocks/section-{$slug}.php") );
-	}
-}
+// Here's a list of dashicons, you might have to get creative!
+// https://developer.wordpress.org/resource/dashicons/
 
 // Add custom Block Categories
 function gucci_block_categories( $categories, $post ) {
-    return array_merge(
-        array(
-            array(
-                'slug' => 'homepage',
-                'title' => __( 'HomePage', 'homepage' )
-            ),
-        ),
-				$categories
-    );
+  return array_merge(
+    array(
+      array(
+        'slug' => 'homepage',
+        'title' => __( 'HomePage', 'homepage' )
+      ),
+    ),
+		$categories
+  );
 }
 add_filter( 'block_categories', 'gucci_block_categories', 10, 2 );
 
@@ -57,7 +60,7 @@ function gucci_allowed_block_types( $allowed_blocks ) {
 		'core/heading',
 		'acf/hero',
     'acf/button',
-		'acf/featuredproducts'
+		'acf/testimonial'
 	);
 }
 

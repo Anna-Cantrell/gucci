@@ -10,7 +10,7 @@ if ( get_field('background_image') ) {
 }
 
 ?>
-<section id="<?php echo $id; ?>" class="section section--hero <?php echo isset($classes) ? $classes : ''; ?> <?php echo $align_class; ?>"<?php echo isset($style) ? 'style="'. $style .'"' : ''; ?>>
+<section id="<?=$id; ?>" class="section section--hero <?=$classes ?: ''?> <?=$align_class; ?>"<?=isset($style) ? 'style="'. $style .'"' : ''; ?>>
 	<div class="layout">
 		<?php if ( get_field('title') ): ?>
 			<h2><?php the_field('title'); ?></h2>
@@ -19,11 +19,14 @@ if ( get_field('background_image') ) {
 			<?php the_field('content'); ?>
 		<?php endif; ?>
 		<?php if ( get_field('cta') ): $cta = get_field('cta'); ?>
-			<p><a href="<?php echo $cta['url']; ?>" target="<?php echo $cta['target']; ?>" class="button"><?php echo $cta['title']; ?></a></p>
+			<p><a href="<?=$cta['url']; ?>" title="<?=$cta['title']?>" target="<?=$cta['target']; ?>" class="button"><?=$cta['title']; ?></a></p>
 		<?php endif; ?>
 	</div>
 </section>
 
-<style type="text/css">
-	#<?php echo $id; ?> {}
-</style>
+
+<?php if(is_admin()) : ?>
+	<style type="text/css">
+		#<?=$id; ?> {}
+	</style>
+<?php endif; ?>

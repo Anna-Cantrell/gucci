@@ -21,7 +21,7 @@ var paths = {
 // Start browserSync server stuffs
 gulp.task('browserSync', function() {
     browserSync.init({
-       proxy: 'http://local.concepteight:8888/'
+       proxy: 'http://localhost:8888/'
     })
 });
 
