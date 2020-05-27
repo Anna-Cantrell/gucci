@@ -13,6 +13,7 @@ function my_acf_init() {
 			'category'			=> 'homepage',
 			'icon'				=> 'admin-comments',
 			'keywords'			=> array( 'homepage', 'hero' ),
+			'supports' => array('multiple' => false)
 		));
 		acf_register_block(array(
 			'name'				=> 'testimonial',
