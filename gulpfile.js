@@ -1,71 +1,90 @@
 // Require packages
 var gulp = require('gulp');
     babelMinify = require('gulp-babel-minify');
-    minifyCSS = require('gulp-minify-css'),
     sass = require('gulp-sass'),
     browserSync = require('browser-sync'),
     runSequence = require('run-sequence'),
     pump = require('pump'),
     rename = require('gulp-rename'),
+    sourcemaps = require('gulp-sourcemaps'),
     include = require('gulp-include'),
     notify = require('gulp-notify');
 
 
-var paths = {
-    templates: './*.php',
-    css: '*.css',
-    js: './library/src/js/functions.js',
-    scss: './library/src/scss/**/*.scss'
+var config = {
+  templates: './*.php',
+  styles: {
+		src: 'library/src/scss/**/*.scss',
+		dest: 'library/dist/css/',
+		sourcemapDest: '.',
+		options: {
+			sass: {
+				outputStyle: 'compressed', // nested, expanded, compact, compressed
+				precision: 5
+			},
+		}
+	},
+  scripts: {
+		src: 'library/src/js/*.js',
+		dest: 'library/dist/js/',
+		sourcemapDest: '.',
+		rename: {
+			suffix: '.min'
+		}
+	}
 };
 
 // Start browserSync server stuffs
 gulp.task('browserSync', function() {
-    browserSync.init({
-       proxy: 'http://localhost:8888/'
-    })
+  browserSync.init({
+    proxy: 'http://localhost:8888/'
+  })
 });
 
 // Do Template things
 gulp.task('templates', function() {
-  return gulp.src(paths.templates)
+  return gulp.src(config.templates)
     .pipe(browserSync.reload({
-        stream:true
+      stream:true
     }));
 });
 
 
 // Do SCSS things
 gulp.task('styles', function(){
-  return gulp.src(paths.scss)
-    .pipe(sass().on('error', sass.logError))
-    .pipe(sass().on('error', notify.onError({
-			title: 'Sass Compilation Error',
-			message: '<%= error.message %>'
-		})))
-    .pipe(minifyCSS())
-    .pipe(gulp.dest('./'))
+  return gulp.src(config.styles.src)
+    .pipe(sourcemaps.init())
+    .pipe(sass(config.styles.options.sass).on('error', sass.logError))
+    .pipe(sass(config.styles.options.sass).on('error', notify.onError({
+      title: 'Sass Compilation Error',
+      message: '<%= error.message %>'
+    })))
+    .pipe(sourcemaps.write(config.styles.sourcemapDest))
+    .pipe(gulp.dest(config.styles.dest))
     .pipe(browserSync.reload({
-        stream:true
+      stream:true
     }));
 });
 
 // Do JS things
 gulp.task('js', function() {
-	return gulp.src(paths.js)
+	return gulp.src(config.scripts.src)
+    .pipe(sourcemaps.init())
     .pipe(include()).on('error', console.log)
-		.pipe(babelMinify())
-		.pipe(rename({ suffix: '.min' }))
-		.pipe(gulp.dest('./library/js'))
-		.pipe(browserSync.reload({
+    .pipe(babelMinify())
+    .pipe(rename(config.scripts.rename))
+    .pipe(sourcemaps.write(config.scripts.sourcemapDest))
+    .pipe(gulp.dest(config.scripts.dest))
+    .pipe(browserSync.reload({
         stream:true
     }));
 });
 
 //Watch things
 gulp.task('watch', ['browserSync'], function() {
-  gulp.watch(paths.templates, ['templates']);
-  gulp.watch(paths.scss, ['styles']);
-  gulp.watch(paths.js, ['js']);
+  gulp.watch(config.templates, ['templates']);
+  gulp.watch(config.styles.src, ['styles']);
+  gulp.watch(config.scripts.src, ['js']);
 });
 
 // Starts gulp

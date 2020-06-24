@@ -11,7 +11,7 @@
  */
 
 ?>
-</main>
+  </main>
 
 <footer>
 

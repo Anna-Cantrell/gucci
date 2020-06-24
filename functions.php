@@ -24,9 +24,9 @@ define( 'DISALLOW_FILE_EDIT', true );
 
 function gucci_styles() {
 	// Load main stylesheet
-	wp_enqueue_style('gucci-style', get_template_directory_uri() . '/style.css');
+	wp_enqueue_style('gucci-style', get_template_directory_uri() . '/library/dist/css/style.css');
 	// Load main javascript
-	wp_enqueue_script('gucci-script', get_template_directory_uri() . '/library/js/functions.min.js', array('jquery'), '1.0', true);
+	wp_enqueue_script('gucci-script', get_template_directory_uri() . '/library/dist/js/functions.min.js', array('jquery'), '1.0', true);
 }
 add_action('wp_enqueue_scripts', 'gucci_styles');
 

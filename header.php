@@ -21,9 +21,11 @@
 <body <?php body_class(); ?>>
 	<a class="skip-main" href="#main">Skip to main content</a>
 
-	<?php wp_nav_menu(
-		array( 'theme_location' => 'main-menu' )
-	); ?>
+	<header>
+		<?php wp_nav_menu(
+			array( 'theme_location' => 'main-menu' )
+		); ?>
+	</header>
 
-<main id="main">
-	
+	<main id="main">
+
