@@ -1,0 +1,11 @@
+@import './base/normalize';
+@import './base/typography';
+@import './base/variables';
+@import './base/layout';
+
+.editor-styles-wrapper .wp-block {
+  width: 100%;
+  max-width: 100%;
+  font-family: inherit !important;
+  @import './base/global';
+}

@@ -23,10 +23,3 @@ if ( get_field('background_image') ) {
 		<?php endif; ?>
 	</div>
 </section>
-
-
-<?php if(is_admin()) : ?>
-	<style type="text/css">
-		#<?=$id; ?> {}
-	</style>
-<?php endif; ?>

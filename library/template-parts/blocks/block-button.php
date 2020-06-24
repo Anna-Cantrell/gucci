@@ -12,9 +12,3 @@ include('variables.php'); // $classes $id $align_class
 		<?php endif; ?>
 	</div>
 </section>
-
-<?php if(is_admin()) : ?>
-	<style type="text/css">
-		#<?=$id; ?> {}
-	</style>
-<?php endif; ?>

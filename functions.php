@@ -32,6 +32,24 @@ add_action('wp_enqueue_scripts', 'gucci_styles');
 
 
 /**
+ * Register Block Styles & Scripts
+ *
+ * The code below registers custom WordPress styles for editor blocks using wp_register_style()
+ * function.
+ *
+ * @since Gucci 1.0
+ */
+function gucci_block_editor_assets() {
+	wp_enqueue_style(
+		'gucci-editor-styles',
+		get_stylesheet_directory_uri() . "/library/dist/css/block-styles.css",
+		array(),
+		'1.0'
+	);
+}
+add_action('enqueue_block_editor_assets', 'gucci_block_editor_assets');
+
+/**
  * Register Features
  *
  * The code below registers custom WordPress theme features using

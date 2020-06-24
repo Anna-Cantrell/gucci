@@ -28,10 +28,7 @@ $align_class = $block['align'] ? 'align' . $block['align'] : '';
 </section>
 
 <?php if(is_admin()) : ?>
-  <style type="text/css">
-  	#<?=$id; ?> {
-  		background: <?php the_field('background_color'); ?>;
-  		color: <?php the_field('text_color'); ?>;
-  	}
-  </style>
+	<script type="text/javascript">
+		<?php // include_once get_template_directory() . '/library/dist/js/editor-functions.min.js'; ?>
+	</script>
 <?php endif; ?>
