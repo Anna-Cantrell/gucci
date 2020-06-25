@@ -26,6 +26,7 @@ var config = {
 	},
   scripts: {
 		src: 'library/src/js/*.js',
+    blockSrc: 'library/src/editor-functions.js',
 		dest: 'library/dist/js/',
 		sourcemapDest: '.',
 		rename: {
@@ -80,14 +81,29 @@ gulp.task('js', function() {
     }));
 });
 
+// Do Block JS things
+gulp.task('blockJs', function() {
+	return gulp.src(config.scripts.blockSrc)
+    .pipe(sourcemaps.init())
+    .pipe(include()).on('error', console.log)
+    .pipe(babelMinify())
+    .pipe(rename(config.scripts.rename))
+    .pipe(sourcemaps.write(config.scripts.sourcemapDest))
+    .pipe(gulp.dest(config.scripts.dest))
+    .pipe(browserSync.reload({
+        stream:true
+    }));
+});
+
 //Watch things
 gulp.task('watch', ['browserSync'], function() {
   gulp.watch(config.templates, ['templates']);
   gulp.watch(config.styles.src, ['styles']);
   gulp.watch(config.scripts.src, ['js']);
+  gulp.watch(config.scripts.blockSrc, ['blockJs']);
 });
 
 // Starts gulp
 gulp.task('default', function (callback) {
-  runSequence(['styles', 'templates', 'js', 'browserSync', 'watch'], callback);
+  runSequence(['styles', 'templates', 'js', 'blockJs', 'browserSync', 'watch'], callback);
 });
