@@ -26,8 +26,8 @@ var config = {
 		}
 	},
   scripts: {
-		src: 'library/src/js/*.js',
-    blockSrc: 'library/src/editor-functions.js',
+		src: 'library/src/js/functions.js',
+    blockSrc: 'library/js/src/editor-functions.js',
 		dest: 'library/dist/js/',
 		sourcemapDest: '.',
 		rename: {
