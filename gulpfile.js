@@ -8,7 +8,8 @@ var gulp = require('gulp');
     rename = require('gulp-rename'),
     sourcemaps = require('gulp-sourcemaps'),
     include = require('gulp-include'),
-    notify = require('gulp-notify');
+    notify = require('gulp-notify'),
+    sassGlob = require('gulp-sass-glob');
 
 
 var config = {
@@ -54,6 +55,7 @@ gulp.task('templates', function() {
 // Do SCSS things
 gulp.task('styles', function(){
   return gulp.src(config.styles.src)
+    .pipe(sassGlob())
     .pipe(sourcemaps.init())
     .pipe(sass(config.styles.options.sass).on('error', sass.logError))
     .pipe(sass(config.styles.options.sass).on('error', notify.onError({
@@ -107,3 +109,4 @@ gulp.task('watch', ['browserSync'], function() {
 gulp.task('default', function (callback) {
   runSequence(['styles', 'templates', 'js', 'blockJs', 'browserSync', 'watch'], callback);
 });
+
